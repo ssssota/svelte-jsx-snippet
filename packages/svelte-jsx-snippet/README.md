@@ -13,7 +13,7 @@ For example: `MyComponent.svelte`
 <section>{@render children}</section>
 ```
 
-For Storybook.
+For Storybook:
 
 ```jsx
 import MyComponent from "./MyComponent.svelte";
@@ -28,7 +28,7 @@ export const Default = {
 };
 ```
 
-For Vitest.
+For Vitest:
 
 ```jsx
 import { test, expect } from "vitest";
@@ -43,6 +43,33 @@ test("render snippet ", () => {
   });
   expect(getByText("Hello, World!")).toBeInTheDocument();
 });
+```
+
+Use svelte component in JSX:
+
+```jsx
+import MyComponent from "./MyComponent.svelte";
+import { jsx } from "svelte-jsx-snippet";
+const MyComponent$ = jsx(MyComponent, ["children"]);
+const snippet = (
+  <MyComponent$>
+    <h1>Hello, World!</h1>
+  </MyComponent$>
+);
+```
+
+Make a JSX component:
+
+```tsx
+import type { FC, JSXChildren } from "svelte-jsx-snippet";
+const SnippetComponent = (props: { children?: JSXChildren }) => {
+  return <section>{children}</section>;
+};
+const snippet = (
+  <SnippetComponent>
+    <h1>Hello, World!</h1>
+  </SnippetComponent>
+);
 ```
 
 ## Setup
