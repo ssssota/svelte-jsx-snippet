@@ -39,6 +39,9 @@
     "jsx",
     "snippet"
   ],
+  "files": [
+    "dist"
+  ],
   "author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
   "license": "MIT",
   "bugs": {
