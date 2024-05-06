@@ -4,6 +4,8 @@ Write JSX as Svelte snippets for testing.
 
 ## Usage
 
+For example: `MyComponent.svelte`
+
 ```svelte
 <script>
   const { children } = $props();
@@ -21,7 +23,7 @@ export default {
 };
 export const Default = {
   props: {
-    children: $snippet(<h1>Hello, World!</h1>),
+    children: <h1>Hello, World!</h1>,
   },
 };
 ```
@@ -36,7 +38,7 @@ import $snippet from "svelte-jsx-snippet";
 test("render snippet ", () => {
   const { getByText } = render(MyComponent, {
     props: {
-      children: $snippet(<h1>Hello, World!</h1>),
+      children: <h1>Hello, World!</h1>,
     },
   });
   expect(getByText("Hello, World!")).toBeInTheDocument();
@@ -49,24 +51,16 @@ test("render snippet ", () => {
 npm install -D svelte-jsx-snippet
 ```
 
-vite.config.js
-
-```js
-import { svelteJsxSnippet } from "svelte-jsx-snippet/vite";
-import { defineConfig } from "vite";
-export default defineConfig({
-  plugins: [svelteJsxSnippet()],
-});
-```
-
 tsconfig.json
 
 ```jsonc
 {
   "compilerOptions": {
+    // set jsx config
     "jsx": "react-jsx",
     "jsxImportSource": "svelte-jsx-snippet",
   },
+  // include jsx/tsx files
   "include": ["**/*.svelte", "**/*.ts", "**/*.tsx"],
 }
 ```

@@ -3,32 +3,28 @@
   "version": "0.0.1",
   "description": "Write JSX as Svelte snippets for testing.",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index-client.js",
+  "types": "dist/index-client.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./dist/index-client.d.ts",
+      "browser": "./dist/index-client.js",
+      "default": "./dist/index-server.js"
     },
     "./jsx-runtime": {
-      "types": "./dist/jsx-runtime.d.ts",
-      "default": "./dist/jsx-runtime.js"
+      "types": "./dist/jsx-runtime/index-client.d.ts",
+      "browser": "./dist/jsx-runtime/index-client.js",
+      "default": "./dist/jsx-runtime/index-server.js"
     },
     "./jsx-dev-runtime": {
-      "types": "./dist/jsx-runtime.d.ts",
-      "default": "./dist/jsx-runtime.js"
-    },
-    "./server": {
-      "types": "./dist/server.d.ts",
-      "default": "./dist/server.js"
-    },
-    "./vite": {
-      "types": "./dist/vite.d.ts",
-      "default": "./dist/vite.js"
+      "types": "./dist/jsx-runtime/index-client.d.ts",
+      "browser": "./dist/jsx-runtime/index-client.js",
+      "default": "./dist/jsx-runtime/index-server.js"
     }
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsc",
+    "clean": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\""
   },
   "repository": {
     "type": "git",
@@ -50,9 +46,9 @@
   "homepage": "https://github.com/ssssota/svelte-jsx-snippet#readme",
   "devDependencies": {
     "svelte": "5.0.0-next.123",
-    "tsup": "^8.0.2",
     "typescript": "^5.4.5",
-    "vite": "^5.0.3"
+    "vite": "^5.0.3",
+    "svelte-jsx-snippet": "workspace:*"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0-next.115"

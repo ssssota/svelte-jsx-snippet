@@ -1,9 +1,37 @@
 <script lang="ts">
-  import H1 from "$lib/H1.svelte";
-  import { snippet } from "$lib";
+  import {
+    htmlElementWithElementChild,
+    htmlElementWithTextChild,
+    htmlElementWithoutChildren,
+    htmlElementWithElementChildren,
+    htmlElementWithMixedChildren,
+    htmlElementWithComponentChild,
+    htmlElementWithComponentChildren,
+    componentWithoutChildren,
+    componentWithTextChild,
+    componentWithElementChild,
+    componentWithElementChildren,
+    componentWithMixedChildren,
+    componentWithComponentChild,
+  } from "$lib";
 </script>
 
-<header>
-  <H1>svelte-jsx-snippet</H1>
-  {@render snippet()}
-</header>
+<!-- {#snippet test()}
+  <span>text</span>
+{/snippet}
+{@render test()} -->
+
+<!-- Hydration checks -->
+{@render htmlElementWithoutChildren()}
+{@render htmlElementWithTextChild()}
+{@render htmlElementWithElementChild()}
+{@render htmlElementWithElementChildren()}
+{@render htmlElementWithMixedChildren()}
+{@render htmlElementWithComponentChild()}
+{@render htmlElementWithComponentChildren()}
+{@render componentWithoutChildren()}
+{@render componentWithTextChild()}
+{@render componentWithElementChild()}
+{@render componentWithElementChildren()}
+{@render componentWithMixedChildren()}
+{@render componentWithComponentChild()}
