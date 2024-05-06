@@ -1,0 +1,57 @@
+{
+  "name": "svelte-jsx-snippet",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./jsx-runtime": {
+      "types": "./dist/jsx-runtime.d.ts",
+      "default": "./dist/jsx-runtime.js"
+    },
+    "./jsx-dev-runtime": {
+      "types": "./dist/jsx-runtime.d.ts",
+      "default": "./dist/jsx-runtime.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
+    },
+    "./vite": {
+      "types": "./dist/vite.d.ts",
+      "default": "./dist/vite.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ssssota/svelte-jsx-snippet.git"
+  },
+  "keywords": [
+    "svelte",
+    "jsx",
+    "snippet"
+  ],
+  "author": "TOMIKAWA Sotaro <tommysouta@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ssssota/svelte-jsx-snippet/issues"
+  },
+  "homepage": "https://github.com/ssssota/svelte-jsx-snippet#readme",
+  "devDependencies": {
+    "svelte": "5.0.0-next.123",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.0.3"
+  },
+  "peerDependencies": {
+    "svelte": ">=5.0.0-next.115"
+  }
+}
