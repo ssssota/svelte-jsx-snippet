@@ -2,7 +2,13 @@
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "bundler",
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "svelte-jsx-snippet"
   },
   "exclude": ["dist"]
 }
