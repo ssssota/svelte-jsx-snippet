@@ -82,4 +82,6 @@ export {
   JSXChildren,
   FunctionComponent,
   FunctionComponent as FC,
+  ComponentProps,
+  PropsWithChildren,
 } from "./jsx-runtime/types";
