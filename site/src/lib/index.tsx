@@ -1,4 +1,4 @@
-import type { JSXChildren } from "svelte-jsx-snippet";
+import { Fragment, svelte, type JSXChildren } from "svelte-jsx-snippet";
 
 export const htmlElementWithoutChildren = <span></span>;
 export const htmlElementWithTextChild = <span>text</span>;
@@ -62,4 +62,11 @@ export const componentWithComponentChild = (
   <Component>
     <Component />
   </Component>
+);
+export const fragment = <Fragment></Fragment>;
+export const fragmentWithTextChild = <Fragment>text</Fragment>;
+export const implicitFragment = <></>;
+
+export const Fc = (props: { children: JSX.Element }) => (
+  <span>{props.children}</span>
 );

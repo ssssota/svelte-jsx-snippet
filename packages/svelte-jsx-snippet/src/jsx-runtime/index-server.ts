@@ -1,7 +1,9 @@
 import type { ComponentType, Snippet, SvelteComponent } from "svelte";
 import * as $ from "svelte/internal/server";
-import { Fragment, buildChildList, renderProps } from "../utils";
+import { buildChildList, renderProps } from "../utils";
 import { FunctionComponent } from "./types";
+
+const FRAGMENT = "fragment";
 
 interface JsxDevOpts {
   fileName: string;
@@ -14,7 +16,7 @@ const jsxDEV = <
     | FunctionComponent<any>
     | ComponentType<SvelteComponent<any>>,
 >(
-  type: T = Fragment as T,
+  type: T = FRAGMENT as T,
   props: T extends FunctionComponent<infer PROPS>
     ? PROPS
     : T extends ComponentType<SvelteComponent<infer PROPS>>
@@ -28,7 +30,7 @@ const jsxDEV = <
   return $.add_snippet_symbol(($$payload: { out: string }) => {
     const { children, ...rest } = props;
     const childList = buildChildList(children);
-    if (type === Fragment) {
+    if (type === FRAGMENT || type === Fragment) {
       for (const child of childList) {
         if (child.type === "dynamic") child.fn($$payload);
         else $$payload.out += $.escape(child.text);
@@ -56,5 +58,9 @@ const jsxDEV = <
     }
   });
 };
+
+export function Fragment(props: Record<string, unknown>) {
+  return jsxDEV(FRAGMENT, props);
+}
 
 export { jsxDEV as jsx, jsxDEV as jsxDEV, jsxDEV as jsxs, jsxDEV as jsxsDEV };

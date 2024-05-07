@@ -25,4 +25,19 @@ export const jsx = <P extends Record<string, unknown>, S extends keyof P>(
     return _jsx(Component, Object.fromEntries(_props) as P);
   };
 };
-export { Fragment } from "./utils";
+
+export const svelte = <T>(
+  fc: FunctionComponent<T>,
+): ComponentType<SvelteComponent<T>> => {
+  return (($$payload: { out: string }, $$props: T) => {
+    $.push(true);
+    const snippet = fc($$props) as any;
+
+    $$payload.out += `<!--[-->`;
+    snippet($$payload);
+    $$payload.out += `<!--]-->`;
+    $.pop();
+  }) as any;
+};
+
+export { Fragment } from "./jsx-runtime/index-server";

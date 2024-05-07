@@ -6,8 +6,6 @@ export function isVoidElement(tag: string): boolean {
     tag,
   );
 }
-export const Fragment: FunctionComponent<Record<string, unknown>> = (_) =>
-  void 0 as any;
 
 type ChildToken =
   | { type: "text"; text: string }
