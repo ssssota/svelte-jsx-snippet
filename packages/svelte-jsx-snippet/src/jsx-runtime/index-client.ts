@@ -2,17 +2,12 @@ import type { ComponentType, Snippet, SvelteComponent } from "svelte";
 import type { SvelteHTMLElements } from "svelte/elements";
 import * as $ from "svelte/internal/client";
 import { buildChildList, renderProps } from "../utils";
-import { FunctionComponent } from "./types";
+import type { FunctionComponent, JSXChildren, JsxDevOpts } from "./types";
 
 const injectMarker = "<!>";
 const TEMPLATE_FRAGMENT = 1;
 const FRAGMENT = "fragment";
 
-interface JsxDevOpts {
-  fileName: string;
-  lineNumber: number;
-  columnNumber: number;
-}
 const jsxDEV = <
   T extends
     | string
@@ -88,5 +83,8 @@ declare global {
   namespace JSX {
     interface IntrinsicElements extends JsxIntrinsicElements {}
     type Element = Snippet<[]>;
+    interface ElementChildrenAttribute {
+      children: JSXChildren;
+    }
   }
 }

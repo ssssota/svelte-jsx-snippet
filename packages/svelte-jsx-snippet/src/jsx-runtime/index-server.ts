@@ -1,15 +1,10 @@
 import type { ComponentType, Snippet, SvelteComponent } from "svelte";
 import * as $ from "svelte/internal/server";
 import { buildChildList, renderProps } from "../utils";
-import { FunctionComponent } from "./types";
+import type { FunctionComponent, JsxDevOpts } from "./types";
 
 const FRAGMENT = "fragment";
 
-interface JsxDevOpts {
-  fileName: string;
-  lineNumber: number;
-  columnNumber: number;
-}
 const jsxDEV = <
   T extends
     | string

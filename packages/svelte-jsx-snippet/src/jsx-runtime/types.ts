@@ -10,10 +10,12 @@ export type JSXChildren =
   | undefined
   | Snippet<[]>
   | JSXChildren[];
-export interface DevJSX {
+export interface JsxDevOpts {
   fileName: string;
   lineNumber: number;
   columnNumber: number;
-  stack?: string;
 }
 export type FunctionComponent<P = unknown> = (props: P) => Snippet<[]>;
+export type ComponentProps<T extends FunctionComponent> =
+  T extends FunctionComponent<infer P> ? P : never;
+export type PropsWithChildren<P> = P & { children?: JSXChildren };
