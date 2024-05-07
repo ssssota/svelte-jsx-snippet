@@ -28,7 +28,7 @@ const jsxDEV = <
     if (type === FRAGMENT || type === Fragment) {
       for (const child of childList) {
         if (child.type === "dynamic") child.fn($$payload);
-        else $$payload.out += $.escape(child.text);
+        else $$payload.out += child.text;
       }
       return;
     }
@@ -36,7 +36,7 @@ const jsxDEV = <
       $$payload.out += `<${type}${renderProps(rest)}>`;
       for (const child of childList) {
         if (child.type === "dynamic") child.fn($$payload);
-        else $$payload.out += $.escape(child.text);
+        else $$payload.out += child.text;
       }
       $$payload.out += `</${type}>`;
       return;
