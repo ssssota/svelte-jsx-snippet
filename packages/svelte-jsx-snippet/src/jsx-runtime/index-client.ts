@@ -76,7 +76,10 @@ export { jsxDEV as jsx, jsxDEV as jsxDEV, jsxDEV as jsxs, jsxDEV as jsxsDEV };
 export type JsxIntrinsicElements = {
   [K in keyof SvelteHTMLElements]: K extends `svelte:${string}`
     ? never
-    : Omit<SvelteHTMLElements[K], `on:${string}` | `bind:${string}`>;
+    : Omit<
+        SvelteHTMLElements[K],
+        `on:${string}` | `bind:${string}` | `sapper:${string}` | "children"
+      > & { children?: JSXChildren };
 };
 
 declare global {
