@@ -1,10 +1,13 @@
 import * as $ from "svelte/internal/client";
-import { FunctionComponent } from "./jsx-runtime/types";
-import { ComponentType, SvelteComponent } from "svelte";
-import { jsx as _jsx } from "./jsx-runtime/index-client";
+import type { FunctionComponent } from "./jsx-runtime/types";
+import type { ComponentType, SvelteComponent } from "svelte";
+import { jsx as _jsx, Fragment } from "./jsx-runtime/index-client";
 
 /**
  * Convert a Svelte component to a JSX function component
+ *
+ * **\* The function component made by this function will be static.**
+ *
  * @param Component Svelte component
  * @param snippetProps Property names that should be treated as snippets
  * @returns Function component that can be used in JSX
@@ -38,7 +41,43 @@ export const jsx = <P extends Record<string, unknown>, S extends keyof P>(
     return _jsx(Component, Object.fromEntries(_props) as P);
   };
 };
-export { Fragment } from "./utils";
+
+/**
+ * Convert a JSX function component to a Svelte component
+ *
+ * **\* The svelte component made by this function will be static.**
+ *
+ * @param Component Function component
+ * @returns Svelte component that can be used .svelte files
+ * @example
+ * ```jsx
+ * const SomeComponent = (props) => <span>{props.children}</span>;
+ * ```
+ *
+ * ```svelte
+ * <script>
+ *   import { svelte } from "svelte-jsx-snippet";
+ *   import SomeComponent from "./SomeComponent";
+ *   const SomeComponent$ = svelte(SomeComponent);
+ * </script>
+ * <SomeComponent$>test</SomeComponent$>
+ * ```
+ */
+export const svelte = <T>(
+  Component: FunctionComponent<T>,
+): ComponentType<SvelteComponent<T>> => {
+  const Wrapped = (props: T) => _jsx(Fragment, { children: Component(props) });
+  return (($$anchor: unknown, $$props: T) => {
+    const props = $.rest_props($$props, []);
+    const fragment = $.comment();
+    const node = $.first_child(fragment);
+    const snippet = Wrapped(props) as any;
+    snippet(node);
+    $.append($$anchor, fragment);
+  }) as any;
+};
+
+export { Fragment };
 export {
   JSXChildren,
   FunctionComponent,

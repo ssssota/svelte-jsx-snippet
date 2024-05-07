@@ -2,6 +2,7 @@
   "scripts": {
     "fmt": "prettier --write .",
     "lint": "prettier --check .",
+    "dev": "pnpm --parallel -r dev",
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "changeset": "changeset",

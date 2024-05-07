@@ -1,6 +1,6 @@
 import { render } from "@testing-library/svelte";
 import { expect, test } from "vitest";
-import { Fragment, jsx } from "svelte-jsx-snippet";
+import { Fragment, jsx, svelte } from "svelte-jsx-snippet";
 
 import H1 from "./H1.svelte";
 
@@ -74,5 +74,16 @@ test("svelte component", () => {
   });
   expect(ctx.container.innerHTML).toMatchInlineSnapshot(
     `"<h1><h1>test<!----></h1><!----><!----><!----></h1>"`,
+  );
+});
+
+test("svelte component from jsx", () => {
+  const FC = (props: { children: JSX.Element }) => (
+    <span>Hello, {props.children}!</span>
+  );
+  const FC$ = svelte(FC);
+  const ctx = render(FC$, { children: <span>snippet</span> });
+  expect(ctx.container.innerHTML).toMatchInlineSnapshot(
+    `"<span>Hello, <span>snippet</span><!---->!</span><!----><!---->"`,
   );
 });

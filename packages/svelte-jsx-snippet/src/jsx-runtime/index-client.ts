@@ -1,11 +1,12 @@
 import type { ComponentType, Snippet, SvelteComponent } from "svelte";
 import type { SvelteHTMLElements } from "svelte/elements";
 import * as $ from "svelte/internal/client";
-import { Fragment, buildChildList, renderProps } from "../utils";
+import { buildChildList, renderProps } from "../utils";
 import { FunctionComponent } from "./types";
 
 const injectMarker = "<!>";
 const TEMPLATE_FRAGMENT = 1;
+const FRAGMENT = "fragment";
 
 interface JsxDevOpts {
   fileName: string;
@@ -18,7 +19,7 @@ const jsxDEV = <
     | FunctionComponent<any>
     | ComponentType<SvelteComponent<any>>,
 >(
-  type: T = Fragment as T,
+  type: T = FRAGMENT as T,
   props: T extends FunctionComponent<infer PROPS>
     ? PROPS
     : T extends ComponentType<SvelteComponent<infer PROPS>>
@@ -30,12 +31,13 @@ const jsxDEV = <
   _ctx?: unknown,
 ): Snippet<[]> => {
   const rootIsHtml = typeof type === "string";
-  const fragment = type === Fragment;
+  const fragment = type === FRAGMENT || type === Fragment;
   const { children, ...rest } = props;
   const childList = buildChildList(children);
   const childrenContent = childList
     .map((child) => (child.type === "dynamic" ? injectMarker : child.text))
     .join("");
+  const dynamicIncluded = childList.some((child) => child.type === "dynamic");
   const content = fragment
     ? childrenContent
     : rootIsHtml
@@ -70,6 +72,10 @@ const jsxDEV = <
   });
 };
 
+export function Fragment(props: Record<string, unknown>) {
+  return jsxDEV(FRAGMENT, props);
+}
+
 export { jsxDEV as jsx, jsxDEV as jsxDEV, jsxDEV as jsxs, jsxDEV as jsxsDEV };
 
 export type JsxIntrinsicElements = {
@@ -81,5 +87,6 @@ export type JsxIntrinsicElements = {
 declare global {
   namespace JSX {
     interface IntrinsicElements extends JsxIntrinsicElements {}
+    type Element = Snippet<[]>;
   }
 }
