@@ -1,5 +1,13 @@
 # svelte-jsx-snippet
 
+## 0.2.1
+
+### Patch Changes
+
+- [`22f6075`](https://github.com/ssssota/svelte-jsx-snippet/commit/22f607548a3354d3374dc192bb6147564c4e7dbc) Thanks [@ssssota](https://github.com/ssssota)! - Improve types
+
+- [#6](https://github.com/ssssota/svelte-jsx-snippet/pull/6) [`4ae57cb`](https://github.com/ssssota/svelte-jsx-snippet/commit/4ae57cba261ca66b2a390f2d97679dac0bfb890c) Thanks [@ssssota](https://github.com/ssssota)! - Fix children type
+
 ## 0.2.0
 
 ### Minor Changes
