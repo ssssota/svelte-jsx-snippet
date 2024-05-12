@@ -3,22 +3,30 @@
   "version": "0.2.1",
   "description": "Write JSX as Svelte snippets for testing.",
   "type": "module",
-  "main": "dist/index-client.js",
-  "types": "dist/index-client.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index-client.d.ts",
-      "browser": "./dist/index-client.js",
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/index.js",
+      "default": "./dist/index-server.js"
+    },
+    "./browser": {
+      "types": "./dist/index-server.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/index.d.ts",
       "default": "./dist/index-server.js"
     },
     "./jsx-runtime": {
-      "types": "./dist/jsx-runtime/index-client.d.ts",
-      "browser": "./dist/jsx-runtime/index-client.js",
+      "types": "./dist/jsx-runtime/index.d.ts",
+      "browser": "./dist/jsx-runtime/index.js",
       "default": "./dist/jsx-runtime/index-server.js"
     },
     "./jsx-dev-runtime": {
-      "types": "./dist/jsx-runtime/index-client.d.ts",
-      "browser": "./dist/jsx-runtime/index-client.js",
+      "types": "./dist/jsx-runtime/index.d.ts",
+      "browser": "./dist/jsx-runtime/index.js",
       "default": "./dist/jsx-runtime/index-server.js"
     }
   },
@@ -47,9 +55,11 @@
   "homepage": "https://github.com/ssssota/svelte-jsx-snippet#readme",
   "devDependencies": {
     "svelte": "5.0.0-next.123",
+    "svelte-jsx-snippet": "workspace:*",
     "typescript": "^5.4.5",
     "vite": "^5.0.3",
-    "svelte-jsx-snippet": "workspace:*"
+    "vite-plugin-doctest": "^1.0.0",
+    "vitest": "^1.2.0"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0-next.115"

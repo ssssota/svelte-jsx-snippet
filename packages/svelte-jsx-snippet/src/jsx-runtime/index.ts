@@ -1,7 +1,7 @@
 import type { ComponentType, Snippet, SvelteComponent } from "svelte";
 import type { SvelteHTMLElements } from "svelte/elements";
 import * as $ from "svelte/internal/client";
-import { buildChildList, renderProps } from "../utils";
+import { buildChildList, isVoidElement, renderProps } from "../utils";
 import type { FunctionComponent, JSXChildren, JsxDevOpts } from "./types";
 
 const injectMarker = "<!>";
@@ -36,7 +36,9 @@ const jsxDEV = <
   const content = fragment
     ? childrenContent
     : rootIsHtml
-      ? `<${type}${renderProps(rest)}>${childrenContent}</${type}>`
+      ? isVoidElement(type)
+        ? `<${type}${renderProps(rest)}>`
+        : `<${type}${renderProps(rest)}>${childrenContent}</${type}>`
       : injectMarker;
   const template = $.template(content, rootIsHtml ? 0 : TEMPLATE_FRAGMENT);
   return $.add_snippet_symbol(($$anchor: unknown) => {

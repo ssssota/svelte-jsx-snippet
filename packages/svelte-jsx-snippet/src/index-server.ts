@@ -3,7 +3,7 @@ import { FunctionComponent } from "./jsx-runtime/types";
 import { ComponentType, SvelteComponent } from "svelte";
 import { jsx as _jsx } from "./jsx-runtime/index-server";
 
-export const jsx = <P extends Record<string, unknown>, S extends keyof P>(
+export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
   Component: ComponentType<SvelteComponent<P>>,
   snippetProps: readonly S[],
 ): FunctionComponent<Omit<P, "children" & S>> => {
@@ -26,7 +26,7 @@ export const jsx = <P extends Record<string, unknown>, S extends keyof P>(
   };
 };
 
-export const svelte = <T>(
+export const svelte$ = <T>(
   fc: FunctionComponent<T>,
 ): ComponentType<SvelteComponent<T>> => {
   return (($$payload: { out: string }, $$props: T) => {

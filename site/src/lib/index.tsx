@@ -1,4 +1,4 @@
-import { Fragment, svelte, type JSXChildren } from "svelte-jsx-snippet";
+import { Fragment, type JSXChildren } from "svelte-jsx-snippet";
 
 export const htmlElementWithoutChildren = <span></span>;
 export const htmlElementWithTextChild = <span>text</span>;

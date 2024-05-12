@@ -19,8 +19,8 @@
   } from "$lib";
   import H1 from "$lib/H1.svelte";
   import Transparent from "$lib/Transparent.svelte";
-  import { svelte } from "svelte-jsx-snippet";
-  const Fc$ = svelte(Fc);
+  import { svelte$ } from "svelte-jsx-snippet";
+  const Fc$ = svelte$(Fc);
   let value = $state("test");
 </script>
 
