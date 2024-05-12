@@ -1,6 +1,6 @@
-import { jsx, type FC } from "svelte-jsx-snippet";
+import { jsx$, type FC } from "svelte-jsx-snippet";
 import Pre from "$lib/Pre.svelte";
-const Pre$ = jsx(Pre, ["children"]);
+const Pre$ = jsx$(Pre, ["children"]);
 
 export const Page: FC = () => {
   return (

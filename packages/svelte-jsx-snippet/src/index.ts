@@ -1,7 +1,7 @@
 import * as $ from "svelte/internal/client";
 import type { FunctionComponent } from "./jsx-runtime/types";
 import type { ComponentType, SvelteComponent } from "svelte";
-import { jsx as _jsx, Fragment } from "./jsx-runtime/index-client";
+import { jsx as _jsx, Fragment } from "./jsx-runtime";
 
 /**
  * Convert a Svelte component to a JSX function component
@@ -18,7 +18,7 @@ import { jsx as _jsx, Fragment } from "./jsx-runtime/index-client";
  * const App = () => <SomeComponent$>test</SomeComponent$>;
  * ```
  */
-export const jsx = <P extends Record<string, unknown>, S extends keyof P>(
+export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
   Component: ComponentType<SvelteComponent<P>>,
   snippetProps: readonly S[],
 ): FunctionComponent<Omit<P, "children" & S>> => {
@@ -63,7 +63,7 @@ export const jsx = <P extends Record<string, unknown>, S extends keyof P>(
  * <SomeComponent$>test</SomeComponent$>
  * ```
  */
-export const svelte = <T>(
+export const svelte$ = <T>(
   Component: FunctionComponent<T>,
 ): ComponentType<SvelteComponent<T>> => {
   const Wrapped = (props: T) => _jsx(Fragment, { children: Component(props) });

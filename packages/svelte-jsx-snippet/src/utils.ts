@@ -1,10 +1,23 @@
-import { FunctionComponent } from "./jsx-runtime/types";
 import { escape } from "svelte/internal/server";
 
+const voidElementSet = new Set([
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr",
+]);
 export function isVoidElement(tag: string): boolean {
-  return /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
-    tag,
-  );
+  return voidElementSet.has(tag);
 }
 
 type ChildToken =

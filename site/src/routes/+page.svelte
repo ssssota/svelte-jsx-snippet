@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { svelte } from "svelte-jsx-snippet";
+  import { svelte$ } from "svelte-jsx-snippet";
   import { Page } from "./index";
-  const Page$ = svelte(Page);
+  const Page$ = svelte$(Page);
 </script>
 
 <Page$ />

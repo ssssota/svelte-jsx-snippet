@@ -1,6 +1,6 @@
 import type { ComponentType, Snippet, SvelteComponent } from "svelte";
 import * as $ from "svelte/internal/server";
-import { buildChildList, renderProps } from "../utils";
+import { buildChildList, isVoidElement, renderProps } from "../utils";
 import type { FunctionComponent, JsxDevOpts } from "./types";
 
 const FRAGMENT = "fragment";
@@ -34,6 +34,7 @@ const jsxDEV = <
     }
     if (typeof type === "string") {
       $$payload.out += `<${type}${renderProps(rest)}>`;
+      if (isVoidElement(type)) return;
       for (const child of childList) {
         if (child.type === "dynamic") child.fn($$payload);
         else $$payload.out += child.text;
