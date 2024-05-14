@@ -73,7 +73,7 @@ test("svelte component", () => {
     children: <H1$>test</H1$>,
   });
   expect(ctx.container.innerHTML).toMatchInlineSnapshot(
-    `"<h1><h1>test<!----></h1><!----><!----><!----></h1>"`,
+    `"<h1><h1>test<!----></h1><!----><!----></h1>"`,
   );
 });
 
@@ -84,6 +84,6 @@ test("svelte component from jsx", () => {
   const FC$ = svelte$(FC);
   const ctx = render(FC$, { children: <span>snippet</span> });
   expect(ctx.container.innerHTML).toMatchInlineSnapshot(
-    `"<span>Hello, <span>snippet</span><!---->!</span><!---->"`,
+    `"<span>Hello, <span>snippet</span><!---->!</span>"`,
   );
 });
