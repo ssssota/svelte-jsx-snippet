@@ -84,6 +84,6 @@ test("svelte component from jsx", () => {
   const FC$ = svelte$(FC);
   const ctx = render(FC$, { children: <span>snippet</span> });
   expect(ctx.container.innerHTML).toMatchInlineSnapshot(
-    `"<span>Hello, <span>snippet</span><!---->!</span><!----><!---->"`,
+    `"<span>Hello, <span>snippet</span><!---->!</span><!---->"`,
   );
 });
