@@ -37,7 +37,6 @@ For example: `MyComponent.svelte`
 
 ```jsx
 import MyComponent from "./MyComponent.svelte";
-import $snippet from "svelte-jsx-snippet";
 export default {
   component: MyComponent,
 };
@@ -54,7 +53,6 @@ export const Default = {
 import { test, expect } from "vitest";
 import { render } from "@testing-library/svelte";
 import MyComponent from "./MyComponent.svelte";
-import $snippet from "svelte-jsx-snippet";
 test("render snippet ", () => {
   const { getByText } = render(MyComponent, {
     props: {
@@ -69,8 +67,8 @@ test("render snippet ", () => {
 
 ```jsx
 import MyComponent from "./MyComponent.svelte";
-import { jsx } from "svelte-jsx-snippet";
-const MyComponent$ = jsx(MyComponent, ["children"]);
+import { jsx$ } from "svelte-jsx-snippet";
+const MyComponent$ = jsx$(MyComponent, ["children"]);
 const snippet = (
   <MyComponent$>
     <h1>Hello, World!</h1>
@@ -103,8 +101,8 @@ const SnippetComponent = (props: { children?: JSX.Element }) => {
 ```svelte
 <script>
   import SnippetComponent from "./SnippetComponent.tsx";
-  import { svelte } from "svelte-jsx-snippet";
-  const SnippetComponent$ = svelte(SnippetComponent, ["children"]);
+  import { svelte$ } from "svelte-jsx-snippet";
+  const SnippetComponent$ = svelte$(SnippetComponent, ["children"]);
 </script>
 
 <SnippetComponent$>

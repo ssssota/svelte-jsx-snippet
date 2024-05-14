@@ -43,17 +43,17 @@ export const Page: FC = () => {
             <code>{`{#snippet hello()}\n  <h3>Hello, world!</h3> <!-- Svelte -->\n{/snippet}`}</code>
           </Pre$>
           <h3>
-            <code>jsx(Component, snippetProps)</code>
+            <code>jsx$(Component, snippetProps)</code>
           </h3>
           <p>
-            <code>jsx</code> function convert a Svelte component to a JSX
+            <code>jsx$</code> function convert a Svelte component to a JSX
             function component.
           </p>
           <h3>
             <code>svelte(Component)</code>
           </h3>
           <p>
-            <code>svelte</code> function convert a JSX function component to a
+            <code>svelte$</code> function convert a JSX function component to a
             Svelte component.
           </p>
         </section>
