@@ -1,4 +1,5 @@
-import { Fragment, type JSXChildren } from "svelte-jsx-snippet";
+import { Fragment, jsx$, type JSXChildren } from "svelte-jsx-snippet";
+import H1 from "$lib/H1.svelte";
 
 export const htmlElementWithoutChildren = <span></span>;
 export const htmlElementWithTextChild = <span>text</span>;
@@ -66,6 +67,15 @@ export const componentWithComponentChild = (
 export const fragment = <Fragment></Fragment>;
 export const fragmentWithTextChild = <Fragment>text</Fragment>;
 export const implicitFragment = <></>;
+export const implicitFragmentWithTextChild = <>text</>;
+const H1$ = jsx$(H1, ["children"]);
+export const svelteComponent = <H1$></H1$>;
+export const svelteComponentWithTextChild = <H1$>text</H1$>;
+export const svelteComponentWithElementChild = (
+  <H1$>
+    <span></span>
+  </H1$>
+);
 
 export const Fc = (props: { children: JSX.Element }) => (
   <span>{props.children}</span>

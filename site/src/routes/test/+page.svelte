@@ -16,6 +16,11 @@
     fragment,
     fragmentWithTextChild,
     Fc,
+    implicitFragment,
+    implicitFragmentWithTextChild,
+    svelteComponent,
+    svelteComponentWithTextChild,
+    svelteComponentWithElementChild,
   } from "$lib";
   import H1 from "$lib/H1.svelte";
   import Transparent from "$lib/Transparent.svelte";
@@ -40,6 +45,11 @@
 {@render componentWithComponentChild()}
 {@render fragment()}
 {@render fragmentWithTextChild()}
+{@render implicitFragment()}
+{@render implicitFragmentWithTextChild()}
+{@render svelteComponent()}
+{@render svelteComponentWithTextChild()}
+{@render svelteComponentWithElementChild()}
 
 <!-- Dynamically checks -->
 <Fc$><H1>{value}</H1></Fc$>
