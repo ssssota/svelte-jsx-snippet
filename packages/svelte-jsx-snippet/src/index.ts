@@ -23,7 +23,7 @@ export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
   snippetProps: readonly S[],
 ): FunctionComponent<Omit<P, "children" & S>> => {
   return (props: P) => {
-    const _props = Object.entries(props).map(([key, value]) => {
+    const propertyEntries = Object.entries(props).map(([key, value]) => {
       if (snippetProps.includes(key as S)) {
         if (typeof value === "function") {
           return [key, value] as const;
@@ -31,14 +31,21 @@ export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
         const template = $.template(value, 1);
         return [
           key,
-          $.add_snippet_symbol(
-            ($$anchor: unknown) => void $.append($$anchor, template()),
-          ),
+          $.add_snippet_symbol(($$anchor: unknown) => {
+            $.append($$anchor, template());
+          }),
         ] as const;
       }
       return [key, value] as const;
     });
-    return _jsx(Component, Object.fromEntries(_props) as P);
+    return $.add_snippet_symbol(($$anchor: unknown) => {
+      const fragment = $.comment();
+      const root = $.first_child(fragment);
+
+      (Component as any)(root, Object.fromEntries(propertyEntries));
+
+      $.append($$anchor, fragment);
+    });
   };
 };
 
@@ -63,15 +70,14 @@ export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
  * <SomeComponent$>test</SomeComponent$>
  * ```
  */
-export const svelte$ = <T>(
-  Component: FunctionComponent<T>,
-): ComponentType<SvelteComponent<T>> => {
-  const Wrapped = (props: T) => _jsx(Fragment, { children: Component(props) });
-  return (($$anchor: unknown, $$props: T) => {
+export const svelte$ = <P extends Record<string, unknown>>(
+  Component: FunctionComponent<P>,
+): ComponentType<SvelteComponent<P>> => {
+  return (($$anchor: unknown, $$props: P) => {
     const props = $.rest_props($$props, []);
     const fragment = $.comment();
     const node = $.first_child(fragment);
-    const snippet = Wrapped(props) as any;
+    const snippet = Component(props) as any;
     snippet(node);
     $.append($$anchor, fragment);
   }) as any;

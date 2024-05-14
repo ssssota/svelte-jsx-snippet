@@ -1,38 +1,30 @@
-import type { ComponentType, Snippet, SvelteComponent } from "svelte";
+import type { Snippet } from "svelte";
 import type { SvelteHTMLElements } from "svelte/elements";
 import * as $ from "svelte/internal/client";
 import { buildChildList, isVoidElement, renderProps } from "../utils";
 import type { FunctionComponent, JSXChildren, JsxDevOpts } from "./types";
+import { FRAGMENT, TEMPLATE_FRAGMENT, injectMarker } from "../constants";
 
-const injectMarker = "<!>";
-const TEMPLATE_FRAGMENT = 1;
-const FRAGMENT = "fragment";
-
-const jsxDEV = <
-  T extends
-    | string
-    | FunctionComponent<any>
-    | ComponentType<SvelteComponent<any>>,
->(
+const jsxDEV = <T extends string | FunctionComponent<any>>(
   type: T = FRAGMENT as T,
   props: T extends FunctionComponent<infer PROPS>
     ? PROPS
-    : T extends ComponentType<SvelteComponent<infer PROPS>>
-      ? PROPS
-      : Record<any, unknown>,
+    : Record<any, unknown>,
   _key?: string | number | null | undefined,
   _isStatic?: boolean,
   _opts?: JsxDevOpts,
   _ctx?: unknown,
 ): Snippet<[]> => {
-  const rootIsHtml = typeof type === "string";
   const fragment = type === FRAGMENT || type === Fragment;
+  const rootIsHtml = !fragment && typeof type === "string";
   const { children, ...rest } = props;
   const childList = buildChildList(children);
   const childrenContent = childList
     .map((child) => (child.type === "dynamic" ? injectMarker : child.text))
     .join("");
-  const dynamicIncluded = childList.some((child) => child.type === "dynamic");
+  const dynamicTokenIncludedAfter = (i: number) => {
+    return childList.slice(i).some((child) => child.type === "dynamic");
+  };
   const content = fragment
     ? childrenContent
     : rootIsHtml
@@ -40,30 +32,27 @@ const jsxDEV = <
         ? `<${type}${renderProps(rest)}>`
         : `<${type}${renderProps(rest)}>${childrenContent}</${type}>`
       : injectMarker;
-  const template = $.template(content, rootIsHtml ? 0 : TEMPLATE_FRAGMENT);
+  const template = $.template(content, fragment ? TEMPLATE_FRAGMENT : 0);
   return $.add_snippet_symbol(($$anchor: unknown) => {
     const root = template();
 
     if (fragment || rootIsHtml) {
-      if (childList.length > 0) {
-        let i = 0;
-        let target = $.child(root);
-        while (true) {
-          const child = childList[i++];
-          if (child.type === "dynamic") child.fn(target);
-          if (i >= childList.length) break;
-          target = $.sibling(target, childList[i]?.type === "text");
-        }
+      let i = 0;
+      let target: unknown;
+      while (dynamicTokenIncludedAfter(i)) {
+        const child = childList[i++];
+        if (child === undefined) break;
+        target =
+          target == null
+            ? fragment
+              ? $.first_child(root)
+              : $.child(root)
+            : $.sibling(target, child.type === "text");
+        if (child.type === "dynamic") child.fn(target);
       }
     } else {
-      if (type.length === 2) {
-        // Svelte component
-        (type as any)($$anchor, props);
-      } else {
-        // Function component
-        const snippet = (type as any)(props);
-        snippet($$anchor);
-      }
+      const snippet = (type as any)(props);
+      snippet($$anchor);
     }
     $.append($$anchor, root);
   });
