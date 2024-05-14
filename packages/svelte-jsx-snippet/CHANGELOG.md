@@ -1,5 +1,13 @@
 # svelte-jsx-snippet
 
+## 0.3.0
+
+### Minor Changes
+
+- [#11](https://github.com/ssssota/svelte-jsx-snippet/pull/11) [`5e47e5d`](https://github.com/ssssota/svelte-jsx-snippet/commit/5e47e5d451bbc57d1b7b78608ecda599ed8f0f8c) Thanks [@ssssota](https://github.com/ssssota)! - Bumpup Svelte
+
+- [#9](https://github.com/ssssota/svelte-jsx-snippet/pull/9) [`afd258e`](https://github.com/ssssota/svelte-jsx-snippet/commit/afd258efd7a199e0e960b6ffc3e758fa97ce5479) Thanks [@ssssota](https://github.com/ssssota)! - Rename converter function names
+
 ## 0.2.1
 
 ### Patch Changes
