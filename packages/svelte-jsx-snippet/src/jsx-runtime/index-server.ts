@@ -1,6 +1,10 @@
 import type { Snippet } from "svelte";
-import * as $ from "svelte/internal/server";
-import { buildChildList, isVoidElement, renderProps } from "../utils";
+import {
+  add_snippet_symbol,
+  buildChildList,
+  isVoidElement,
+  renderProps,
+} from "../utils";
 import type { FunctionComponent, JsxDevOpts } from "./types";
 import { FRAGMENT, hydrationMarkerE, hydrationMarkerS } from "../constants";
 
@@ -14,7 +18,7 @@ const jsxDEV = <T extends string | FunctionComponent<any>>(
   _opts?: JsxDevOpts,
   _ctx?: unknown,
 ): Snippet<[]> => {
-  return $.add_snippet_symbol(($$payload: { out: string }) => {
+  return add_snippet_symbol(($$payload: { out: string }) => {
     const { children, ...rest } = props;
     const childList = buildChildList(children);
     if (type === FRAGMENT || type === Fragment) {
