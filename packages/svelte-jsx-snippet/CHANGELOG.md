@@ -1,5 +1,11 @@
 # svelte-jsx-snippet
 
+## 0.4.0
+
+### Minor Changes
+
+- [#13](https://github.com/ssssota/svelte-jsx-snippet/pull/13) [`f620cbe`](https://github.com/ssssota/svelte-jsx-snippet/commit/f620cbe74d755d297ed1de7838e5cb2e81548c37) Thanks [@ssssota](https://github.com/ssssota)! - Bumpup svelte
+
 ## 0.3.0
 
 ### Minor Changes
