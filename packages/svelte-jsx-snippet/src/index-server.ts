@@ -3,6 +3,7 @@ import { FunctionComponent } from "./jsx-runtime/types";
 import { ComponentType, SvelteComponent } from "svelte";
 import { jsx as _jsx } from "./jsx-runtime/index-server";
 import { hydrationMarkerE, hydrationMarkerS } from "./constants";
+import { add_snippet_symbol } from "./utils";
 
 export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
   Component: ComponentType<SvelteComponent<P>>,
@@ -16,14 +17,14 @@ export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
         }
         return [
           key,
-          $.add_snippet_symbol(($$payload: { out: string }) => {
+          add_snippet_symbol(($$payload: { out: string }) => {
             $$payload.out += String(value);
           }),
         ] as const;
       }
       return [key, value] as const;
     });
-    return $.add_snippet_symbol(($$payload: { out: string }) => {
+    return add_snippet_symbol(($$payload: { out: string }) => {
       $$payload.out += hydrationMarkerS;
       (Component as any)($$payload, Object.fromEntries(propertyEntries));
       $$payload.out += hydrationMarkerE;

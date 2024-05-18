@@ -1,5 +1,11 @@
 import { escape } from "svelte/internal/server";
 
+const snippet_symbol = Symbol.for("svelte.snippet");
+export function add_snippet_symbol(fn: (...args: any[]) => any) {
+  fn[snippet_symbol] = true;
+  return fn;
+}
+
 const voidElementSet = new Set([
   "area",
   "base",

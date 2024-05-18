@@ -1,7 +1,12 @@
 import type { Snippet } from "svelte";
 import type { SvelteHTMLElements } from "svelte/elements";
 import * as $ from "svelte/internal/client";
-import { buildChildList, isVoidElement, renderProps } from "../utils";
+import {
+  add_snippet_symbol,
+  buildChildList,
+  isVoidElement,
+  renderProps,
+} from "../utils";
 import type { FunctionComponent, JSXChildren, JsxDevOpts } from "./types";
 import { FRAGMENT, TEMPLATE_FRAGMENT, injectMarker } from "../constants";
 
@@ -33,7 +38,7 @@ const jsxDEV = <T extends string | FunctionComponent<any>>(
         : `<${type}${renderProps(rest)}>${childrenContent}</${type}>`
       : injectMarker;
   const template = $.template(content, fragment ? TEMPLATE_FRAGMENT : 0);
-  return $.add_snippet_symbol(($$anchor: unknown) => {
+  return add_snippet_symbol(($$anchor: unknown) => {
     const root = template();
 
     if (fragment || rootIsHtml) {

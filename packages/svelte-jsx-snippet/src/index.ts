@@ -2,6 +2,7 @@ import * as $ from "svelte/internal/client";
 import type { FunctionComponent } from "./jsx-runtime/types";
 import type { ComponentType, SvelteComponent } from "svelte";
 import { jsx as _jsx, Fragment } from "./jsx-runtime";
+import { add_snippet_symbol } from "./utils";
 
 /**
  * Convert a Svelte component to a JSX function component
@@ -31,14 +32,14 @@ export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
         const template = $.template(value, 1);
         return [
           key,
-          $.add_snippet_symbol(($$anchor: unknown) => {
+          add_snippet_symbol(($$anchor: unknown) => {
             $.append($$anchor, template());
           }),
         ] as const;
       }
       return [key, value] as const;
     });
-    return $.add_snippet_symbol(($$anchor: unknown) => {
+    return add_snippet_symbol(($$anchor: unknown) => {
       const fragment = $.comment();
       const root = $.first_child(fragment);
 
