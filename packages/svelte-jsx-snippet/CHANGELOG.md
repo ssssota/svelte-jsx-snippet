@@ -1,5 +1,11 @@
 # svelte-jsx-snippet
 
+## 0.5.0
+
+### Minor Changes
+
+- [#15](https://github.com/ssssota/svelte-jsx-snippet/pull/15) [`8faca70`](https://github.com/ssssota/svelte-jsx-snippet/commit/8faca705d64b22b628ffe61bbd1c3ed2e9df9e4b) Thanks [@ssssota](https://github.com/ssssota)! - Bumpup svelte with new Component type
+
 ## 0.4.0
 
 ### Minor Changes
