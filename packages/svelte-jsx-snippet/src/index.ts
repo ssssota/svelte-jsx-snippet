@@ -1,6 +1,6 @@
 import * as $ from "svelte/internal/client";
 import type { FunctionComponent } from "./jsx-runtime/types";
-import type { ComponentType, SvelteComponent } from "svelte";
+import type { Component } from "svelte";
 import { jsx as _jsx, Fragment } from "./jsx-runtime";
 import { add_snippet_symbol } from "./utils";
 
@@ -20,7 +20,7 @@ import { add_snippet_symbol } from "./utils";
  * ```
  */
 export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
-  Component: ComponentType<SvelteComponent<P>>,
+  Component: Component<P>,
   snippetProps: readonly S[],
 ): FunctionComponent<Omit<P, "children" & S>> => {
   return (props: P) => {
@@ -43,7 +43,7 @@ export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
       const fragment = $.comment();
       const root = $.first_child(fragment);
 
-      (Component as any)(root, Object.fromEntries(propertyEntries));
+      Component(root, Object.fromEntries(propertyEntries) as P);
 
       $.append($$anchor, fragment);
     });
@@ -73,15 +73,16 @@ export const jsx$ = <P extends Record<string, unknown>, S extends keyof P>(
  */
 export const svelte$ = <P extends Record<string, unknown>>(
   Component: FunctionComponent<P>,
-): ComponentType<SvelteComponent<P>> => {
-  return (($$anchor: unknown, $$props: P) => {
+): Component<P> => {
+  return ($$anchor: unknown, $$props: P) => {
     const props = $.rest_props($$props, []);
     const fragment = $.comment();
     const node = $.first_child(fragment);
     const snippet = Component(props) as any;
     snippet(node);
     $.append($$anchor, fragment);
-  }) as any;
+    return {};
+  };
 };
 
 export { Fragment };
