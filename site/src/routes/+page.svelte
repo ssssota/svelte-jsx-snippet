@@ -1,7 +1,6 @@
 <script lang="ts">
-  import { svelte$ } from "svelte-jsx-snippet";
-  import { Page } from "./index";
-  const Page$ = svelte$(Page);
+  import { test } from "./index.jsx";
 </script>
 
-<Page$ />
+{@render test()}
+<h1>test</h1>
