@@ -1,4 +1,4 @@
-// import Pre from "$lib/Pre.svelte";
+import Pre from "$lib/Pre.svelte";
 
 export const page = (
   <div>
@@ -13,11 +13,11 @@ export const page = (
     <main>
       <section>
         <h2>Setup</h2>
-        <pre>
+        <Pre>
           <code>{`npm install svelte-jsx-snippet`}</code>
-        </pre>
+        </Pre>
         <p>tsconfig.json</p>
-        <pre>
+        <Pre>
           <code>{`{
   "compilerOptions": {
     // set jsx config
@@ -27,18 +27,18 @@ export const page = (
   // include jsx/tsx files
   "include": ["**/*.svelte", "**/*.ts", "**/*.tsx"],
 }`}</code>
-        </pre>
+        </Pre>
       </section>
       <section>
         <h2>API</h2>
         <h3>JSX</h3>
         <p>JSX will be Svelte snippet. The following two are synonymous:</p>
-        <pre>
+        <Pre>
           <code>{`const hello = <h3>Hello, world!</h3> // JSX`}</code>
-        </pre>
-        <pre>
+        </Pre>
+        <Pre>
           <code>{`{#snippet hello()}\n  <h3>Hello, world!</h3> <!-- Svelte -->\n{/snippet}`}</code>
-        </pre>
+        </Pre>
         <h3>
           <code>jsx$(Component, snippetProps)</code>
         </h3>

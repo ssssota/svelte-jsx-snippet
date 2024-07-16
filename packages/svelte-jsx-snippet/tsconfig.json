@@ -8,7 +8,9 @@
     "outDir": "dist",
     "declaration": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "isolatedDeclarations": true,
+    "verbatimModuleSyntax": true
   },
-  "exclude": ["dist", "vitest.config.ts"]
+  "exclude": ["dist", "vitest.config.ts", "tsup.config.ts"]
 }

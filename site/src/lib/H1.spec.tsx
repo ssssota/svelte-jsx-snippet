@@ -1,6 +1,6 @@
 import { render } from "@testing-library/svelte";
+import { Fragment } from "svelte-jsx-snippet";
 import { expect, test } from "vitest";
-import { Fragment, jsx$, svelte$ } from "svelte-jsx-snippet";
 
 import H1 from "./H1.svelte";
 

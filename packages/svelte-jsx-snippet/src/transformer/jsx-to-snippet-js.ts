@@ -1,27 +1,41 @@
 import { parse } from "@babel/parser";
+import type { JSXElement, JSXFragment } from "@babel/types";
 import { compile } from "svelte/compiler";
 import { findFunctionDeclarationFromName } from "./find-function-declaration-from-name";
 import { findTemplateDeclarations } from "./find-template-declarations";
 import { findVariableDeclaratorFromName } from "./find-variable-declarator-from-name";
 import { generateRandomName } from "./generate-random-name";
+import { generate } from "./generator";
+import { jsxToSvelte } from "./jsx-to-svelte";
+import { renameIdentifierInPlace } from "./rename-identifier-in-place";
+
+type Names =
+  | { avoidString: string }
+  | { componentName: string; snippetName: string; avoidString?: never };
 
 export function jsxToSnippetJs(
-  jsx: string,
+  jsx: JSXElement | JSXFragment,
   options: {
     generate: "server" | "client";
     dev: boolean;
-    componentName?: string;
-    snippetName?: string;
-    templateName?: string;
+    names: Names;
   },
 ): { template: string; snippet: string } {
-  const componentName = options.componentName ?? generateRandomName(jsx);
-  const snippetName = options.snippetName ?? generateRandomName(jsx);
-  const { js } = compile(`{#snippet ${snippetName}()}${jsx}{/snippet}`, {
-    generate: options.generate,
-    dev: options.dev,
-    name: componentName,
-  });
+  const { componentName, snippetName } =
+    options.names.avoidString !== undefined
+      ? {
+          componentName: generateRandomName(options.names.avoidString),
+          snippetName: generateRandomName(options.names.avoidString),
+        }
+      : options.names;
+  const { js } = compile(
+    `{#snippet ${snippetName}()}${jsxToSvelte(jsx)}{/snippet}`,
+    {
+      generate: options.generate,
+      dev: options.dev,
+      name: componentName,
+    },
+  );
   const ast = parse(js.code, { plugins: ["jsx"], sourceType: "module" });
 
   if (options.generate === "server") {
@@ -32,28 +46,36 @@ export function jsxToSnippetJs(
 
     return {
       template: "",
-      snippet: `$.add_snippet_symbol(${js.code.slice(fn.start!, fn.end!)})`,
+      snippet: `$.add_snippet_symbol(${generate(fn).code})`,
     };
   }
 
-  const [template] = findTemplateDeclarations(ast.program);
+  renameIdentifierInPlace(ast.program, (name) => {
+    const matched = name.match(/^root_\d+$/);
+    if (matched) return `${snippetName}_${matched[0]}`;
+  });
+
+  const templates = findTemplateDeclarations(ast.program);
   const snippetFn = findVariableDeclaratorFromName(snippetName, ast.program);
-  if (!template) {
+  if (templates.length === 0) {
     throw new Error("Template declaration not found");
   }
   if (!snippetFn?.init) {
     throw new Error("Snippet function not found");
   }
-  const newTemplateName = options.templateName ?? generateRandomName(jsx);
 
   return {
-    template: js.code
-      .slice(template.start!, template.end!)
-      .replace(/root_1/, newTemplateName)
-      .replace(`${componentName}.filename`, `"${componentName}"`),
-    snippet: js.code
-      .slice(snippetFn.init.start!, snippetFn.init.end!)
-      .replace(/root_1/, newTemplateName)
-      .replace(componentName, "function(){}"),
+    template: templates
+      .map((template) => {
+        return generate(template).code.replace(
+          `${componentName}.filename`,
+          `"${componentName}"`,
+        );
+      })
+      .join("\n"),
+    snippet: generate(snippetFn.init).code.replace(
+      new RegExp(componentName, "g"),
+      "function(){}",
+    ),
   };
 }

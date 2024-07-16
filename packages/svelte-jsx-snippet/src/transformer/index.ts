@@ -1,5 +1,5 @@
 import { parse } from "@babel/parser";
-import MagicString from "magic-string";
+import MagicString, { SourceMap } from "magic-string";
 import { findJsxNode } from "./find-jsx-node";
 import { jsxToSnippetJs } from "./jsx-to-snippet-js";
 
@@ -8,7 +8,13 @@ export type TransformOptions = {
   dev: boolean;
   typescript: boolean;
 };
-export function transform(code: string, options?: TransformOptions) {
+export function transform(
+  code: string,
+  options?: TransformOptions,
+): {
+  code: string;
+  map: SourceMap;
+} | null {
   const {
     generate = "client",
     dev = false,
@@ -29,8 +35,11 @@ export function transform(code: string, options?: TransformOptions) {
   const s = new MagicString(code); // use MagicString to generate source map
 
   for (const node of jsxNodes) {
-    const jsx = code.slice(node.start!, node.end!);
-    const snippet = jsxToSnippetJs(jsx, { generate, dev });
+    const snippet = jsxToSnippetJs(node, {
+      generate,
+      dev,
+      names: { avoidString: code },
+    });
     s.prependLeft(0, snippet.template);
     s.update(node.start!, node.end!, snippet.snippet);
   }

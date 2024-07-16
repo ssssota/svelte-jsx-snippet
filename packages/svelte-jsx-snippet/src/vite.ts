@@ -1,7 +1,7 @@
-import type { VitePlugin } from "unplugin";
+import type { Plugin } from "vite";
 import { transform } from "./transformer";
 
-export const svelteJsxSnippetPlugin = (): VitePlugin => {
+export function svelteJsxSnippetPlugin(): Plugin {
   let dev = false;
   return {
     name: "svelte-jsx-snippet",
@@ -19,9 +19,9 @@ export const svelteJsxSnippetPlugin = (): VitePlugin => {
       return transform(code, {
         dev,
         generate: options?.ssr ? "server" : "client",
-        typescript: /\.tsx$/.test(id),
+        typescript: /tsx$/.test(id),
       });
     },
   };
-};
+}
 export default svelteJsxSnippetPlugin;

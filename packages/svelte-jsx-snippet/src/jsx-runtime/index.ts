@@ -1,12 +1,12 @@
+import type { Component, Snippet, SvelteComponent } from "svelte";
 import type { SvelteHTMLElements } from "svelte/elements";
-import type { JSXChildren, JsxDevOpts } from "./types";
 import { ERROR_MESSAGE } from "../utils";
-import { Component, Snippet, SvelteComponent } from "svelte";
+import type { JSXChildren, JsxDevOpts } from "./types";
 
 const FRAGMENT = "fragment";
 
 const jsxDEV = <T extends string | Component<any>>(
-  _type: T = FRAGMENT as T,
+  _type: T | undefined = FRAGMENT as T,
   _props: T extends Component<infer PROPS> ? PROPS : Record<any, unknown>,
   _key?: string | number | null | undefined,
   _isStatic?: boolean,
@@ -16,7 +16,7 @@ const jsxDEV = <T extends string | Component<any>>(
   throw new Error(ERROR_MESSAGE);
 };
 
-export function Fragment(props: Record<string, unknown>) {
+export function Fragment(props: Record<string, unknown>): Snippet<[]> {
   return jsxDEV(FRAGMENT, props);
 }
 

@@ -26,7 +26,8 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "test": "vitest"
+    "test": "vitest",
+    "check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -47,6 +48,11 @@
   },
   "homepage": "https://github.com/ssssota/svelte-jsx-snippet#readme",
   "devDependencies": {
+    "@babel/generator": "^7.24.10",
+    "@babel/parser": "^7.24.8",
+    "@babel/types": "^7.24.9",
+    "@types/babel__generator": "^7.6.8",
+    "magic-string": "^0.30.10",
     "svelte": "5.0.0-next.183",
     "svelte-jsx-snippet": "workspace:*",
     "tsup": "^8.1.0",
@@ -57,10 +63,5 @@
   "peerDependencies": {
     "svelte": ">=5.0.0-next.183"
   },
-  "dependencies": {
-    "@babel/parser": "^7.24.8",
-    "@babel/types": "^7.24.8",
-    "magic-string": "^0.30.10",
-    "unplugin": "^1.11.0"
-  }
+  "dependencies": {}
 }

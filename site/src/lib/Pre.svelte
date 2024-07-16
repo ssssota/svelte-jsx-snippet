@@ -11,7 +11,9 @@
 
 <div class="wrapper">
   <pre bind:this={pre}>{@render children()}</pre>
-  <button class="copy" aria-label="Copy" onclick={copy}>📝</button>
+  <button class="copy" title="copy" aria-label="Copy this code" onclick={copy}>
+    📝
+  </button>
 </div>
 
 <style>

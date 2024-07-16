@@ -1,4 +1,4 @@
-import { Snippet } from "svelte";
+import type { Snippet } from "svelte";
 import { Fragment } from "./jsx-runtime";
 import { ERROR_MESSAGE } from "./utils";
 
@@ -12,7 +12,7 @@ export function Render(_: { $: ReturnType<Snippet> }): Snippet<[]> {
   throw new Error(ERROR_MESSAGE);
 }
 
-export {
+export type {
   ComponentProps,
   FunctionComponent as FC,
   FunctionComponent,
