@@ -8,8 +8,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.js",
-      "default": "./dist/index-server.js"
+      "default": "./dist/index.js"
     },
     "./vite": {
       "types": "./dist/vite.d.ts",
@@ -22,16 +21,12 @@
     "./jsx-dev-runtime": {
       "types": "./dist/jsx-runtime/index.d.ts",
       "default": "./dist/jsx-runtime/index.js"
-    },
-    "./unplugin": {
-      "types": "./dist/unplugin/index.d.ts",
-      "default": "./dist/unplugin/index.js"
     }
   },
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
-    "clean": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\""
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -52,19 +47,19 @@
   },
   "homepage": "https://github.com/ssssota/svelte-jsx-snippet#readme",
   "devDependencies": {
-    "@babel/types": "^7.24.8",
     "svelte": "5.0.0-next.183",
     "svelte-jsx-snippet": "workspace:*",
+    "tsup": "^8.1.0",
     "typescript": "^5.5.3",
     "vite": "^5.0.3",
-    "vite-plugin-doctest": "^1.0.0",
-    "vitest": "^1.2.0"
+    "vitest": "^2.0.3"
   },
   "peerDependencies": {
     "svelte": ">=5.0.0-next.183"
   },
   "dependencies": {
     "@babel/parser": "^7.24.8",
+    "@babel/types": "^7.24.8",
     "magic-string": "^0.30.10",
     "unplugin": "^1.11.0"
   }

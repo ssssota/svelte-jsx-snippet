@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { test } from "./index.jsx";
+  import { page } from "./index";
 </script>
 
-{@render test()}
-<h1>test</h1>
+{@render page()}

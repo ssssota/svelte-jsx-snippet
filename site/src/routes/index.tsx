@@ -1,6 +1,6 @@
-export const test = <h1>test</h1>;
+// import Pre from "$lib/Pre.svelte";
 
-export const Page = (
+export const page = (
   <div>
     <header>
       <h1>svelte-jsx-snippet</h1>

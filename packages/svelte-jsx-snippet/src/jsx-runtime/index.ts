@@ -1,20 +1,19 @@
-import type { Snippet } from "svelte";
 import type { SvelteHTMLElements } from "svelte/elements";
-import type { FunctionComponent, JSXChildren, JsxDevOpts } from "./types";
+import type { JSXChildren, JsxDevOpts } from "./types";
+import { ERROR_MESSAGE } from "../utils";
+import { Component, Snippet, SvelteComponent } from "svelte";
 
 const FRAGMENT = "fragment";
 
-const jsxDEV = <T extends string | FunctionComponent<any>>(
+const jsxDEV = <T extends string | Component<any>>(
   _type: T = FRAGMENT as T,
-  _props: T extends FunctionComponent<infer PROPS>
-    ? PROPS
-    : Record<any, unknown>,
+  _props: T extends Component<infer PROPS> ? PROPS : Record<any, unknown>,
   _key?: string | number | null | undefined,
   _isStatic?: boolean,
   _opts?: JsxDevOpts,
   _ctx?: unknown,
 ): Snippet<[]> => {
-  throw new Error("Use svelte-jsx-snippet/vite as vite plugin");
+  throw new Error(ERROR_MESSAGE);
 };
 
 export function Fragment(props: Record<string, unknown>) {
@@ -32,10 +31,18 @@ export type JsxIntrinsicElements = {
       > & { children?: JSXChildren };
 };
 
+type ComponentOrSvelteComponent = SvelteComponent & {
+  $$prop_def: { children: JSXChildren };
+};
+
 declare global {
   namespace JSX {
     interface IntrinsicElements extends JsxIntrinsicElements {}
     type Element = Snippet<[]>;
+    interface ElementClass extends ComponentOrSvelteComponent {}
+    interface ElementAttributesProperty {
+      $$prop_def: unknown;
+    }
     interface ElementChildrenAttribute {
       children: JSXChildren;
     }
