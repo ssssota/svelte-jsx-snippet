@@ -27,6 +27,12 @@ export function jsxToSvelteHtml(
   if (jsx.type === "JSXFragment") {
     return jsx.children.map(jsxToSvelteHtml).join("");
   }
+  if (
+    jsx.openingElement.name.type === "JSXIdentifier" &&
+    jsx.openingElement.name.name === "Fragment"
+  ) {
+    return jsx.children.map(jsxToSvelteHtml).join("");
+  }
   return [
     generate(jsx.openingElement).code,
     ...jsx.children.map(jsxToSvelteHtml),

@@ -1,7 +1,7 @@
 import type { Plugin } from "vite";
 import { transform } from "./transformer";
 
-export function svelteJsxSnippetPlugin(): Plugin {
+export function svelteJsxSnippet(): Plugin {
   let dev = false;
   return {
     name: "svelte-jsx-snippet",
@@ -24,4 +24,4 @@ export function svelteJsxSnippetPlugin(): Plugin {
     },
   };
 }
-export default svelteJsxSnippetPlugin;
+export default svelteJsxSnippet;
