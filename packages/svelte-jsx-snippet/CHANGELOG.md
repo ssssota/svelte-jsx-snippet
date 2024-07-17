@@ -1,5 +1,11 @@
 # svelte-jsx-snippet
 
+## 0.6.0
+
+### Minor Changes
+
+- [#19](https://github.com/ssssota/svelte-jsx-snippet/pull/19) [`bf122ac`](https://github.com/ssssota/svelte-jsx-snippet/commit/bf122ac8365804b8002f371494378bc9dbb5545a) Thanks [@ssssota](https://github.com/ssssota)! - [BREAKING CHANGE] Preprocess JSX with Vite plugin
+
 ## 0.5.0
 
 ### Minor Changes
