@@ -7,7 +7,7 @@ import type {
 } from "@babel/types";
 import { generate } from "./generator";
 
-export function jsxToSvelte(
+export function jsxToSvelteHtml(
   jsx:
     | JSXElement
     | JSXFragment
@@ -16,20 +16,20 @@ export function jsxToSvelte(
     | JSXSpreadChild,
 ): string {
   if (jsx.type === "JSXExpressionContainer") {
-    throw new Error("Not supported");
+    return `{${generate(jsx.expression).code}}`;
   }
   if (jsx.type === "JSXText") {
     return jsx.value;
   }
   if (jsx.type === "JSXSpreadChild") {
-    return `{${generate(jsx.expression).code}}`;
+    throw new Error("Not supported");
   }
   if (jsx.type === "JSXFragment") {
-    return jsx.children.map(jsxToSvelte).join("");
+    return jsx.children.map(jsxToSvelteHtml).join("");
   }
   return [
     generate(jsx.openingElement).code,
-    ...jsx.children.map(jsxToSvelte),
+    ...jsx.children.map(jsxToSvelteHtml),
     jsx.closingElement ? generate(jsx.closingElement).code : "",
   ].join("");
 }
