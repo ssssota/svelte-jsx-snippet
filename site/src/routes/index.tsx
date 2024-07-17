@@ -28,6 +28,17 @@ export const page = (
   "include": ["**/*.svelte", "**/*.ts", "**/*.tsx"],
 }`}</code>
         </Pre>
+        <p>vite.config.ts</p>
+        <Pre>
+          <code>{`import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig } from "vite";
+// Put svelteJsxSnippet plugin
+import { svelteJsxSnippet } from "svelte-jsx-snippet/vite";
+
+export default defineConfig({
+  plugins: [sveltekit(), svelteJsxSnippet()],
+});`}</code>
+        </Pre>
       </section>
       <section>
         <h2 id="api">API</h2>
