@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "target": "esnext",
     "module": "esnext",
     "moduleResolution": "bundler",
     "lib": ["esnext", "dom"],
@@ -7,8 +8,9 @@
     "outDir": "dist",
     "declaration": true,
     "skipLibCheck": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "svelte-jsx-snippet"
+    "strict": true,
+    "isolatedDeclarations": true,
+    "verbatimModuleSyntax": true
   },
-  "exclude": ["dist", "vitest.config.ts"]
+  "exclude": ["dist", "vitest.config.ts", "tsup.config.ts"]
 }

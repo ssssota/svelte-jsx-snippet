@@ -18,4 +18,4 @@ export interface JsxDevOpts {
 export type FunctionComponent<P = unknown> = (props: P) => Snippet<[]>;
 export type ComponentProps<T extends FunctionComponent> =
   T extends FunctionComponent<infer P> ? P : never;
-export type PropsWithChildren<P> = P & { children?: JSXChildren };
+export type PropsWithChildren<P = unknown> = P & { children?: JSXChildren };

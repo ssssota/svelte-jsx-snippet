@@ -8,32 +8,26 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.js",
-      "default": "./dist/index-server.js"
-    },
-    "./browser": {
-      "types": "./dist/index-server.d.ts",
       "default": "./dist/index.js"
     },
-    "./server": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index-server.js"
+    "./vite": {
+      "types": "./dist/vite.d.ts",
+      "default": "./dist/vite.js"
     },
     "./jsx-runtime": {
       "types": "./dist/jsx-runtime/index.d.ts",
-      "browser": "./dist/jsx-runtime/index.js",
-      "default": "./dist/jsx-runtime/index-server.js"
+      "default": "./dist/jsx-runtime/index.js"
     },
     "./jsx-dev-runtime": {
       "types": "./dist/jsx-runtime/index.d.ts",
-      "browser": "./dist/jsx-runtime/index.js",
-      "default": "./dist/jsx-runtime/index-server.js"
+      "default": "./dist/jsx-runtime/index.js"
     }
   },
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
-    "clean": "node -e \"fs.rmSync('dist', { recursive: true, force: true })\""
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest",
+    "check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -54,14 +48,20 @@
   },
   "homepage": "https://github.com/ssssota/svelte-jsx-snippet#readme",
   "devDependencies": {
-    "svelte": "5.0.0-next.155",
+    "@babel/generator": "^7.24.10",
+    "@babel/parser": "^7.24.8",
+    "@babel/types": "^7.24.9",
+    "@types/babel__generator": "^7.6.8",
+    "magic-string": "^0.30.10",
+    "svelte": "5.0.0-next.183",
     "svelte-jsx-snippet": "workspace:*",
-    "typescript": "^5.4.5",
-    "vite": "^5.0.3",
-    "vite-plugin-doctest": "^1.0.0",
-    "vitest": "^1.2.0"
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
+    "vitest": "^2.0.3"
   },
   "peerDependencies": {
-    "svelte": ">=5.0.0-next.155"
+    "svelte": ">=5.0.0-next.183",
+    "vite": ">=5.0.0"
   }
 }

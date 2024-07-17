@@ -1,15 +1,8 @@
 import { sveltekit } from "@sveltejs/kit/vite";
-import { svelteTesting } from "@testing-library/svelte/vite";
-import { defineConfig } from "vitest/config";
+import { svelteJsxSnippet } from "svelte-jsx-snippet/vite";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [sveltekit(), svelteTesting()],
+  plugins: [sveltekit(), svelteJsxSnippet()],
   base: "./",
-  test: {
-    include: ["src/**/*.{test,spec}.{js,ts,jsx,tsx}"],
-    environment: "jsdom",
-    alias: {
-      "@testing-library/svelte": "@testing-library/svelte/svelte5",
-    },
-  },
 });
