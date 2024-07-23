@@ -51,6 +51,7 @@
     "@babel/generator": "^7.24.10",
     "@babel/parser": "^7.24.8",
     "@babel/types": "^7.24.9",
+    "@rollup/pluginutils": "^5.1.0",
     "@types/babel__generator": "^7.6.8",
     "magic-string": "^0.30.10",
     "svelte": "5.0.0-next.183",
