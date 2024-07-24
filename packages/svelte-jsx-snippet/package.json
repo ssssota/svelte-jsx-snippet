@@ -63,5 +63,8 @@
   "peerDependencies": {
     "svelte": ">=5.0.0-next.183",
     "vite": ">=5.0.0"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "^5.1.0"
   }
 }
