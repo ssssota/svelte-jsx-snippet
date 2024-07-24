@@ -1,12 +1,14 @@
 import type { Plugin } from "vite";
 import { transform } from "./transformer";
-import { type FilterPattern, createFilter as rollupCreateFilter } from '@rollup/pluginutils';
-
+import {
+  type FilterPattern,
+  createFilter as rollupCreateFilter,
+} from "@rollup/pluginutils";
 
 export interface Options {
   include?: FilterPattern;
   exclude?: FilterPattern;
-};
+}
 
 /**
  * Create a filter function from the given include and exclude patterns.
@@ -14,13 +16,10 @@ export interface Options {
  * @param exclude - An array of minimatch or regex pattern strings.
  */
 function createFilter(
-  include: Options['include'],
-  exclude: Options['exclude'],
+  include: Options["include"],
+  exclude: Options["exclude"],
 ): ReturnType<typeof rollupCreateFilter> {
-  return rollupCreateFilter(
-    include ?? [/\.[mc]?[jt]sx$/],
-    exclude
-  );
+  return rollupCreateFilter(include ?? [/\.[mc]?[jt]sx$/], exclude);
 }
 
 export function svelteJsxSnippet(options: Options = {}): Plugin {
